@@ -8,6 +8,10 @@
 #
 # Author: Michael Levin
 # Site: http://www.kinnetica.com
+#
+#This work, "nicolasraube/jekyll-sitemap-generator", is a derivative of "kinnetica/jekyll-plugins" by kinnetica, used under CC BY. "nicolasraube/jekyll-sitemap-generator" is licensed under CC BY 3.0 by Nicolas Raube.
+#For changes, visit https://github.com/nicolasraube/jekyll-sitemap-generator
+#
 # Distributed Under A Creative Commons License
 #   - http://creativecommons.org/licenses/by/3.0/
 require 'jekyll/document'
