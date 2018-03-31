@@ -77,7 +77,7 @@ module Jekyll
       sitemap = REXML::Document.new << REXML::XMLDecl.new("1.0", "UTF-8")
 
       urlset = REXML::Element.new "urlset"
-      urlset.add_attribute("xmlns", 
+      urlset.add_attribute("xmlns",
         "http://www.sitemaps.org/schemas/sitemap/0.9")
 
       @last_modified_post_date = fill_posts(site, urlset)
@@ -132,6 +132,15 @@ module Jekyll
           end
         end
       end
+
+      site.collections["portfolio"].docs.each do |project|
+        if !excluded?(site, project.path_to_source)
+          if File.exists?(project.path)
+            url = fill_url(site, project)
+            urlset.add_element(url)
+          end
+        end
+      end
     end
 
     # Fill data of each URL element: location, last modified,
@@ -144,15 +153,15 @@ module Jekyll
       loc = fill_location(site, page_or_post)
       url.add_element(loc)
 
-      lastmod = fill_last_modified(site, page_or_post)
-      url.add_element(lastmod) if lastmod
-
-
+      if is_blog_post(page_or_post)
+        lastmod = fill_last_modified(site, page_or_post)
+        url.add_element(lastmod) if lastmod
+      end
 
       if (page_or_post.data[@config['change_frequency_name']])
-        change_frequency = 
+        change_frequency =
           page_or_post.data[@config['change_frequency_name']].downcase
-          
+
         if (valid_change_frequency?(change_frequency))
           changefreq = REXML::Element.new "changefreq"
           changefreq.text = change_frequency
