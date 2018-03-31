@@ -8,7 +8,7 @@ Configuration Update: Daniel Groves ([http://danielgroves.net](http://danielgrov
 
 This work, "nicolasraube/jekyll-sitemap-generator", is a derivative of "kinnetica/jekyll-plugins" by Michael Levin, used under CC BY. "nicolasraube/jekyll-sitemap-generator" is licensed under CC BY 3.0 by Nicolas Raube.
 
-Changes I, Nicolas Raube, made:
+**Changes** I, Nicolas Raube, made:
 - exclude certain files from being added to the sitemap
 - adds portfolio collection entries to sitemap
 - only adds lastmodified property if the page is a blog post and then only uses front matter 'date' value
