@@ -180,12 +180,26 @@ module Jekyll
         else
           puts "ERROR: Invalid Priority In #{page_or_post.name}"
         end
+      else
+        if is_blog_post(page_or_post) || is_project(page_or_post)
+          priority = REXML::Element.new "priority"
+          priority.text = 0.8
+          url.add_element(priority)
+        end
       end
 
       url
     end
 
-    # Get URL location of page or post 
+    def is_blog_post(page)
+      page.path.include? "_posts"
+    end
+
+    def is_project(page)
+      page.path.include? "_portfolio"
+    end
+
+    # Get URL location of page or post
     #
     # Returns the location of the page or post
     def fill_location(site, page_or_post)
