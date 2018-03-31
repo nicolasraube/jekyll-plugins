@@ -53,7 +53,7 @@ module Jekyll
     # Config defaults
     SITEMAP_FILE_NAME = "/sitemap.xml"
     EXCLUDE = ["/atom.xml", "/feed.xml", "/feed/index.xml", "/css/blog.scss", "/css/blogmultiplepages.scss", "/css/contact.scss", "/css/index.scss", "/css/main.scss", "/css/post.scss", "/css/project.scss", "/404.html"]
-    INCLUDE_POSTS = ["/_portfolio/"]
+    INCLUDE_POSTS = []
     CHANGE_FREQUENCY_NAME = "change_frequency"
     PRIORITY_NAME = "priority"
 
@@ -215,52 +215,9 @@ module Jekyll
     # Returns lastmod REXML::Element or nil
     def fill_last_modified(site, page_or_post)
       lastmod = REXML::Element.new "lastmod"
-      date = File.mtime(page_or_post.path)
-      latest_date = find_latest_date(date, site, page_or_post)
+      lastmod.text = page_or_post.date.iso8601
 
-      if @last_modified_post_date == nil
-        # This is a post
-        lastmod.text = latest_date.iso8601
-      else
-        # This is a page
-        if posts_included?(site, page_or_post.path_to_source)
-          # We want to take into account the last post date
-          final_date = greater_date(latest_date, @last_modified_post_date)
-          lastmod.text = final_date.iso8601
-        else
-          lastmod.text = latest_date.iso8601
-        end
-      end
       lastmod
-    end
-
-    # Go through the page/post and any implemented layouts and get the latest
-    # modified date
-    #
-    # Returns formatted output of latest date of page/post and any used layouts
-    def find_latest_date(latest_date, site, page_or_post)
-      layouts = site.layouts
-      layout = layouts[page_or_post.data["layout"]]
-      while layout
-        date = File.mtime(layout.path)
-
-        latest_date = date if (date > latest_date)
-
-        layout = layouts[layout.data["layout"]]
-      end
-
-      latest_date
-    end
-
-    # Which of the two dates is later
-    #
-    # Returns latest of two dates
-    def greater_date(date1, date2)
-      if (date1 >= date2) 
-        date1
-      else 
-        date2 
-      end
     end
 
     # Is the page or post listed as something we want to exclude?
