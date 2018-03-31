@@ -1,11 +1,11 @@
-# Sitemap.xml Generator is a Jekyll plugin that generates a sitemap.xml file by 
+# Sitemap.xml Generator is a Jekyll plugin that generates a sitemap.xml file by
 # traversing all of the available posts and pages.
-# 
+#
 # See readme file for documenation
-# 
+#
 # Updated to use config file for settings by Daniel Groves
 # Site: http://danielgroves.net
-# 
+#
 # Author: Michael Levin
 # Site: http://www.kinnetica.com
 # Distributed Under A Creative Commons License
@@ -52,14 +52,14 @@ module Jekyll
 
     # Config defaults
     SITEMAP_FILE_NAME = "/sitemap.xml"
-    EXCLUDE = ["/atom.xml", "/feed.xml", "/feed/index.xml"]
-    INCLUDE_POSTS = ["/index.html"] 
+    EXCLUDE = ["/atom.xml", "/feed.xml", "/feed/index.xml", "/css/blog.scss", "/css/blogmultiplepages.scss", "/css/contact.scss", "/css/index.scss", "/css/main.scss", "/css/post.scss", "/css/project.scss", "/404.html"]
+    INCLUDE_POSTS = ["/_portfolio/"]
     CHANGE_FREQUENCY_NAME = "change_frequency"
     PRIORITY_NAME = "priority"
-    
+
     # Valid values allowed by sitemap.xml spec for change frequencies
     VALID_CHANGE_FREQUENCY_VALUES = ["always", "hourly", "daily", "weekly",
-      "monthly", "yearly", "never"] 
+      "monthly", "yearly", "never"]
 
     # Goes through pages and posts and generates sitemap.xml file
     #
