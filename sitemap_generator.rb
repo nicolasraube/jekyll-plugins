@@ -145,7 +145,18 @@ module Jekyll
           end
         end
       end
+
+      site.collections["es"].docs.each do |spanish_post|
+        if !excluded?(site, spanish_post.path_to_source)
+          if File.exists?(spanish_post.path)
+            url = fill_url(site, spanish_post)
+            urlset.add_element(url)
+          end
+        end
+      end
     end
+
+    
 
     # Fill data of each URL element: location, last modified,
     # change frequency (optional), and priority.
@@ -157,7 +168,7 @@ module Jekyll
       loc = fill_location(site, page_or_post)
       url.add_element(loc)
 
-      if is_blog_post(page_or_post)
+      if is_blog_post(page_or_post) || is_spanish_blog_post(page_or_post)
         lastmod = fill_last_modified(site, page_or_post)
         url.add_element(lastmod) if lastmod
       end
@@ -185,7 +196,7 @@ module Jekyll
           puts "ERROR: Invalid Priority In #{page_or_post.name}"
         end
       else
-        if is_blog_post(page_or_post) || is_project(page_or_post)
+        if is_blog_post(page_or_post) || is_spanish_blog_post(page_or_post) || is_project(page_or_post)
           priority = REXML::Element.new "priority"
           priority.text = 0.8
           url.add_element(priority)
@@ -197,6 +208,10 @@ module Jekyll
 
     def is_blog_post(page)
       page.path.include? "_posts"
+    end
+
+    def is_spanish_blog_post(page)
+      page.path.include? "_es"
     end
 
     def is_project(page)
